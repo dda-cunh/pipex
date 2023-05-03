@@ -6,7 +6,7 @@
 /*   By: dda-cunh <dda-cunh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 21:04:20 by dda-cunh          #+#    #+#             */
-/*   Updated: 2023/04/16 20:43:58 by dda-cunh         ###   ########.fr       */
+/*   Updated: 2023/05/03 01:57:31 by dda-cunh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 //# include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 4096
 # endif
 
 char		*seek_line(char *buffer, char *line, int r, int fd);

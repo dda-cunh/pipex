@@ -22,7 +22,7 @@ $(NAME):	$(OBJ)
 $(OBJ): 	$(SRC)
 			@$(CC) -c $(CFLAGS) $(SRC)
 
-all: 		@$(NAME)
+all: 		$(NAME)
 
 clean:	
 			@$(RM) $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: dda-cunh <dda-cunh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 22:48:59 by dda-cunh          #+#    #+#             */
-/*   Updated: 2023/04/14 18:10:45 by dda-cunh         ###   ########.fr       */
+/*   Updated: 2023/05/03 01:14:31 by dda-cunh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ static char	*sol(const char	*big, const char *little, size_t len, size_t l_len)
 {
 	size_t	b_i;
 	size_t	l_i;
-	size_t	start;
 
 	b_i = 0;
 	l_i = 0;
-	start = 0;
 	while (len > l_i && big[b_i + l_i])
 	{
 		if (big[b_i + l_i] == little[l_i])

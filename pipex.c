@@ -6,12 +6,11 @@
 /*   By: dda-cunh <dda-cunh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:25:12 by dda-cunh          #+#    #+#             */
-/*   Updated: 2023/05/02 21:13:53 by dda-cunh         ###   ########.fr       */
+/*   Updated: 2023/05/03 01:53:30 by dda-cunh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <errno.h>
 
 static int	parent(int pipefd[2], int tmp, int l)
 {
@@ -19,9 +18,9 @@ static int	parent(int pipefd[2], int tmp, int l)
 
 	close_fds((int []){pipefd[1], tmp}, 2);
 	waitpid(l, &status, 0);
-	if (!status)
+	if (status != 2)
 	{
-		tmp = open("tmp", O_RDWR | O_TRUNC);
+		tmp = open("tmp", O_WRONLY | O_TRUNC);
 		if (tmp == -1)
 			return (2);
 		read_write(pipefd[0], tmp);
@@ -39,13 +38,16 @@ static int	child(char **cmd, char **envp)
 	if (pipe(pipefd) == -1)
 		return (2);
 	tmp = open("tmp", O_RDONLY);
+	if (tmp == -1)
+		return (2);
 	l = fork();
 	if (l == -1)
 		return (2);
 	if (l == 0)
 	{
-		if (dup2(tmp, STDIN_FILENO) == -1
-			|| dup2(pipefd[1], STDOUT_FILENO) == -1)
+		if (dup2(tmp, STDIN_FILENO) == -1)
+			return (2);
+		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 			return (2);
 		close_fds((int []){pipefd[0], pipefd[1], tmp}, 3);
 		execve(cmd[0], &cmd[1], envp);
@@ -111,5 +113,5 @@ int	main(int ac, char **av, char **envp)
 		return (errno);
 	}
 	else if (status == 3)
-		ft_putstr_fd("Bad Command\n", 2);
+		ft_putstr_fd("command not found\n", 2);
 }
